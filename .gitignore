@@ -13,3 +13,4 @@ output\.html
 /.bsp/
 sbt.json
 
+assignment-lazy/src/main/scala/edu/neu/coe/csye7200/asstll/MyList.scala

@@ -98,7 +98,11 @@ object Movie extends App {
       * @param w a line of input.
       * @return a Try[Movie]
       */
-    def parse(w: String): Try[Movie] = ??? // TO BE IMPLEMENTED
+    def parse(w: String): Try[Movie] = {
+      val strings = w.split(",")
+      val ws: Seq[String] = strings.to(Seq)
+      Try(apply(ws))
+    }
   }
 
   val ingester = new Ingest[Movie]()
@@ -201,7 +205,17 @@ object Rating {
     */
   // Hint: This should similar to apply method in Object Name. The parameter of apply in case match should be same as case class Rating
   // 13 points
-  def apply(s: String): Rating = ??? // TO BE IMPLEMENTED
+  def apply(s: String): Rating = {
+    val strings: Array[String] = s.split("-")
+
+    if(strings.size>1)
+    {
+        Rating(strings(0),Some(strings(1).toInt))
+    }else{
+        Rating(strings(0),None)
+    }
+
+  } // TO BE IMPLEMENTED
 
 }
 

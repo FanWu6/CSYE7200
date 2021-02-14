@@ -206,13 +206,18 @@ object Rating {
   // Hint: This should similar to apply method in Object Name. The parameter of apply in case match should be same as case class Rating
   // 13 points
   def apply(s: String): Rating = {
-    val strings: Array[String] = s.split("-")
-
-    if(strings.size>1)
-    {
-        Rating(strings(0),Some(strings(1).toInt))
-    }else{
-        Rating(strings(0),None)
+//    val strings: Array[String] = s.split("-")
+//
+//    if(strings.size>1)
+//    {
+//        Rating(strings(0),Some(strings(1).toInt))
+//    }else{
+//        Rating(strings(0),None)
+//    }
+    s match {
+      case rRating(code, _, null) => Rating(code, None)
+      case rRating(code, _, age) => Rating(code, Some(age.toInt))
+      case _ => throw ParseException(s"parse error in Rating: $s")
     }
 
   } // TO BE IMPLEMENTED

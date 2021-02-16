@@ -215,7 +215,7 @@ object Rating {
 //    }
     s match {
       case rRating(code, _, null) => Rating(code, None)
-      case rRating(code, _, age) => Rating(code, Some(age.toInt))
+      case rRating(code, _, age) => Rating(code, Option(age.toInt))
       case _ => throw ParseException(s"parse error in Rating: $s")
     }
 

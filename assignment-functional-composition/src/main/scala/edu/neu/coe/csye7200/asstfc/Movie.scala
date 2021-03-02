@@ -99,10 +99,20 @@ object Movie extends App {
   }
 
   //Hint: You may refer to the slides discussed in class for how to serialize object to json
+  type MoiveSeq = Seq[Movie]
+  case class Moives(movies:MoiveSeq)
   object MoviesProtocol extends DefaultJsonProtocol {
     // 20 points
     // TO BE IMPLEMENTED
-    ???
+    implicit val nameFormat = jsonFormat4(Name.apply)
+    implicit val formatFormat = jsonFormat4(Format.apply)
+    implicit val productionFormat = jsonFormat4(Production.apply)
+    implicit val rateingFormat = jsonFormat2(Rating.apply)
+    implicit val reviewsFormat = jsonFormat7(Reviews.apply)
+    implicit val pricipleFormat = jsonFormat2(Principal.apply)
+
+    implicit val movieFormat = jsonFormat11(Movie.apply)
+    implicit val movieSeq : RootJsonFormat[Moives]= jsonFormat1(Moives)
   }
 
   implicit object IngestibleMovie extends IngestibleMovie
@@ -120,10 +130,15 @@ object Movie extends App {
   }
 
   //Hint: Serialize the input to Json format and deserialize back to Object, check the result is still equal to original input.
+  import MoviesProtocol._
+  private def fromJson(string: String) = string.parseJson.convertTo[Seq[Movie]]
   def testSerializationAndDeserialization(ms: Seq[Movie]): Boolean = {
     // 5 points
     // TO BE IMPLEMENTED
-    ???
+    val source = ms.toJson.toString
+    val deserialize = fromJson(source)
+//    println("是否相等:",deserialize==(ms))
+    deserialize.equals(ms)
   }
 
   def getMoviesFromCountry(country: String, movies: Iterator[Try[Movie]]): Try[Seq[Movie]] = {

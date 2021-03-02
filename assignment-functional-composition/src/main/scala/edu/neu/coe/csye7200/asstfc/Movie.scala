@@ -99,8 +99,7 @@ object Movie extends App {
   }
 
   //Hint: You may refer to the slides discussed in class for how to serialize object to json
-  type MoiveSeq = Seq[Movie]
-  case class Moives(movies:MoiveSeq)
+  case class Moives(movies:Seq[Movie])
   object MoviesProtocol extends DefaultJsonProtocol {
     // 20 points
     // TO BE IMPLEMENTED
